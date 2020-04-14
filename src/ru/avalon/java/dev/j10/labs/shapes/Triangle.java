@@ -14,7 +14,57 @@ package ru.avalon.java.dev.j10.labs.shapes;
  *
  * @see <a href="https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA">Треугольник</a>
  */
-public class Triangle {
+public class Triangle implements Polygon {
+
+    private PointImpl pointA;
+    private PointImpl pointB;
+    private PointImpl pointC;
+
+
+    private double sideAB;
+    private double sideBC;
+    private double sideCA;
+
+    private double perTri;
+
+    public Triangle (PointImpl pointA, PointImpl pointB, PointImpl pointC) {
+        double pointAX = pointA.getX();
+        double pointAY = pointA.getY();
+        double pointBX = pointB.getX();
+        double pointBY = pointB.getY();
+        double pointCX = pointC.getX();
+        double pointCY = pointC.getY();
+
+        double lineABX = Math.pow((pointBX - pointAX),2);
+        double lineABY = Math.pow((pointBY - pointAY),2);
+        double lineBCX = Math.pow((pointCX - pointBX),2);
+        double lineBCY = Math.pow((pointCY - pointBY),2);
+        double lineCAX = Math.pow((pointAX - pointCX),2);
+        double lineCAY = Math.pow((pointAY - pointCY),2);
+
+
+        sideAB = Math.sqrt(lineABX + lineABY); //длина стороны по формуле вычисления расстояния между двумя
+        sideBC = Math.sqrt(lineBCX + lineBCY); //точками на плоскости
+        sideCA = Math.sqrt(lineCAX + lineCAY);
+
+        perTri = sideAB + sideBC + sideCA;
+
+    }
+
+
+    @Override
+    public float getPerimeter() {
+        float perTri2 = (float) perTri ;
+        return perTri2;
+    }
+
+    @Override
+    public float getArea() { //формула площади треугольника по трем сторонам
+        double halfPerTri = perTri / 2;
+        double areaTri = Math.sqrt(halfPerTri * (halfPerTri - sideAB) * (halfPerTri - sideBC) * (halfPerTri - sideCA));
+        float areaTri2 = (float) areaTri;
+        return areaTri2;
+    }
 
     /*
      * TODO: Реализовать класс 'Triangle'
