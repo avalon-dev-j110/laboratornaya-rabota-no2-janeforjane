@@ -15,45 +15,34 @@ public class Circle implements Ellipse {
     private PointImpl pointOnCircle;
 
 
-    private double rad;
-    private double pi;
-
     public Circle (PointImpl center, PointImpl pointOnCircle) {
-        double centerX = center.getX();
-        double centerY = center.getY();
-        double pointOnCircleX = pointOnCircle.getX();
-        double pointOnCircleY = pointOnCircle.getY();
-
-        double lineX = Math.pow((pointOnCircleX - centerX),2);
-        double lineY = Math.pow((pointOnCircleY - centerY),2);
-
-
-        rad = Math.sqrt(lineX + lineY);
+        this.center = center;
+        this.pointOnCircle = pointOnCircle;
 
     }
 
+    private double getRad (){
 
-    public void setRad(float rad) {
-        this.rad = rad;
+        double lineX = Math.pow((pointOnCircle.getX() - center.getX()),2);
+        double lineY = Math.pow((pointOnCircle.getY() - center.getY()),2);
+
+        return Math.sqrt(lineX + lineY);
     }
+
 
     @Override
     public float getLength() {
-        pi = Math.PI;
-        double lenCircle = rad * 2 * pi;
-        float lenCircle2 = (float) lenCircle;
-        return lenCircle2;
+
+        double lenCircle = getRad() * 2 * Math.PI;
+        return (float) lenCircle;
     }
 
     @Override
     public float getArea() {
 
-        double areaCircle = Math.pow(rad, 2)* Math.PI;
-        float areaCircle2 = (float) areaCircle;
-        return areaCircle2;
+        double areaCircle = Math.pow(getRad(), 2)* Math.PI;
+        return (float) areaCircle;
     }
-
-
 
 
     /*

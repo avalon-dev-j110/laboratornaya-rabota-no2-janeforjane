@@ -2,6 +2,7 @@ package ru.avalon.java.dev.j10.labs;
 
 import ru.avalon.java.dev.j10.labs.shapes.*;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Application {
@@ -36,26 +37,14 @@ public class Application {
             }
         }
 
-        int numShape = 0;
-        float maxArea = shapes[0].getArea();
 
+        Shape largestShape = getLargestShape(shapes);
 
-        for(int i = 1; i < shapes.length; i++) {
-
-
-             if (shapes[i].getArea() > maxArea) {
-                maxArea = shapes[i].getArea();
-                numShape = i;
-            }
-        }
-
-        System.out.println("Max Area has element № "  + numShape + ". It is " + " = "+ maxArea);
+        System.out.println("Max Area has "  + largestShape.getClass().getSimpleName() + ".It has area" + " = "+ largestShape.getArea());
 
 
         System.out.println("-------------");
         System.out.println("Areas of all elements:");
-
-
 
         for(int i = 0; i < shapes.length; i++) {
             System.out.println(" Area of element № " + i + " = " + shapes[i].getArea());
@@ -75,5 +64,19 @@ public class Application {
          *    площадью. Для поиска фигуры необходимо создать
          *    статический метод в текущем классе (Application).
          */
+    }
+
+    private static Shape getLargestShape (Shape[] shapes) {
+        int numShape = 0;
+        float maxArea = shapes[0].getArea();
+
+        for(int i = 1; i < shapes.length; i++) {
+
+            if (shapes[i].getArea() > maxArea) {
+                maxArea = shapes[i].getArea();
+                numShape = i;
+            }
+        }
+        return shapes[numShape];
     }
 }

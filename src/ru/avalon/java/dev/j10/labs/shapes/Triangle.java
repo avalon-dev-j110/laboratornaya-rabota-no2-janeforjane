@@ -21,50 +21,56 @@ public class Triangle implements Polygon {
     private PointImpl pointC;
 
 
-    private double sideAB;
-    private double sideBC;
-    private double sideCA;
-
-    private double perTri;
-
     public Triangle (PointImpl pointA, PointImpl pointB, PointImpl pointC) {
-        double pointAX = pointA.getX();
-        double pointAY = pointA.getY();
-        double pointBX = pointB.getX();
-        double pointBY = pointB.getY();
-        double pointCX = pointC.getX();
-        double pointCY = pointC.getY();
 
-        double lineABX = Math.pow((pointBX - pointAX),2);
-        double lineABY = Math.pow((pointBY - pointAY),2);
-        double lineBCX = Math.pow((pointCX - pointBX),2);
-        double lineBCY = Math.pow((pointCY - pointBY),2);
-        double lineCAX = Math.pow((pointAX - pointCX),2);
-        double lineCAY = Math.pow((pointAY - pointCY),2);
-
-
-        sideAB = Math.sqrt(lineABX + lineABY); //длина стороны по формуле вычисления расстояния между двумя
-        sideBC = Math.sqrt(lineBCX + lineBCY); //точками на плоскости
-        sideCA = Math.sqrt(lineCAX + lineCAY);
-
-        perTri = sideAB + sideBC + sideCA;
+        this.pointA = pointA;
+        this.pointB = pointB;
+        this.pointC = pointC;
 
     }
 
+    private double getSideAB () {
+
+        double lineABX = Math.pow((pointB.getX() - pointA.getX()),2);
+        double lineABY = Math.pow((pointB.getY() - pointA.getY()),2);
+
+        return Math.sqrt(lineABX + lineABY);
+    }
+
+    private double getSideBC () {
+
+        double lineBCX = Math.pow((pointC.getX() - pointB.getX()),2);
+        double lineBCY = Math.pow((pointC.getY() - pointB.getY()),2);
+
+        return Math.sqrt(lineBCX + lineBCY);
+    }
+
+    private double getSideCA() {
+
+        double lineCAX = Math.pow((pointA.getX() - pointC.getX()),2);
+        double lineCAY = Math.pow((pointA.getY() - pointC.getY()),2);
+
+        return Math.sqrt(lineCAX + lineCAY);
+
+    }
+
+    private double getPerTri (){
+
+        return getSideAB() + getSideBC() + getSideCA();
+
+    }
 
     @Override
     public float getPerimeter() {
-        float perTri2 = (float) perTri ;
-        return perTri2;
+        return (float) getPerTri ();
     }
 
     @Override
     public float getArea() { //формула площади треугольника по трем сторонам
-        double halfPerTri = perTri / 2;
-        double areaTri = Math.sqrt(halfPerTri * (halfPerTri - sideAB) * (halfPerTri - sideBC) * (halfPerTri - sideCA));
-        float areaTri2 = (float) areaTri;
-        return areaTri2;
+        double halfPerTri = getPerTri () / 2;
+        return (float) Math.sqrt(halfPerTri * (halfPerTri - getSideAB()) * (halfPerTri - getSideBC()) * (halfPerTri - getSideCA()));
     }
+
 
     /*
      * TODO: Реализовать класс 'Triangle'

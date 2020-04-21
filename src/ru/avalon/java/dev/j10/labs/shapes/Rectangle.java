@@ -15,43 +15,42 @@ public class Rectangle implements Polygon {
     private PointImpl pointC;
 
 
-    private double length;
-    private double width;
-
-
     public Rectangle (PointImpl pointA, PointImpl pointB, PointImpl pointC){
 
-        double pointAX = pointA.getX();
-        double pointAY = pointA.getY();
-        double pointBX = pointB.getX();
-        double pointBY = pointB.getY();
-        double pointCX = pointC.getX();
-        double pointCY = pointC.getY();
+        this.pointA = pointA;
+        this.pointB = pointB;
+        this.pointC = pointC;
 
-        double lineABX = Math.pow((pointBX - pointAX),2);
-        double lineABY = Math.pow((pointBY - pointAY),2);
-        double lineBCX = Math.pow((pointCX - pointBX),2);
-        double lineBCY = Math.pow((pointCY - pointBY),2);
+    }
 
-        length = Math.sqrt(lineABX + lineABY);
-        width = Math.sqrt(lineBCX + lineBCY);
+    private double getLength () {
+
+        double lineABX = Math.pow((pointB.getX()- pointA.getX()),2);
+        double lineABY = Math.pow((pointB.getY() - pointA.getY()),2);
+
+        return Math.sqrt(lineABX + lineABY);
+    }
+
+    private double getWidth () {
+
+        double lineBCX = Math.pow((pointC.getX() - pointB.getX()),2);
+        double lineBCY = Math.pow((pointC.getY() - pointB.getY()),2);
+
+        return Math.sqrt(lineBCX + lineBCY);
 
     }
 
     @Override
     public float getPerimeter() {
-        double perRec = 2* (length + width);
-        float perRec2 = (float) perRec;
-        return perRec2;
+        double perRec = 2* (getLength() + getWidth());
+        return (float) perRec;
     }
 
     @Override
     public float getArea() {
-        double areaRec = length * width;
-        float areaRec2 = (float) areaRec;
-        return areaRec2;
+        double areaRec = getLength() * getWidth();
+        return (float) areaRec;
     }
-
 
     /*
      * TODO: Реализовать класс 'Rectangle'
